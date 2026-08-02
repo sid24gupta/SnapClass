@@ -6,7 +6,7 @@
 _pycache_/
 
 venv/
-
+.venv/
 .streamlit/
 
 
