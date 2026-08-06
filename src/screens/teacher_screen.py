@@ -5,6 +5,7 @@ from src.components.footer import footer_dashboard
 from src.database.db import check_teacher_exists, create_teacher, teacher_login, get_teacher_subject
 from src.components.dialog_create_subject import create_subject_dialog
 from src.components.subject_card import subject_card
+from src.components.dialog_share_subject import share_subject_dialog
 
 def teacher_screen():
     
@@ -170,7 +171,7 @@ def register_teacher(teacher_username,teacher_name,teacher_password,teach_pass_c
         return False, "Password doesnt match"
     
     try:
-        create_teacher(teacher_username, teacher_password, teacher_username)
+        create_teacher(teacher_username, teacher_password, teacher_name)
     except Exception as e:
         return False, "Unexpected Error!"
     return True, "Successfully Created! Please proceed with Login"
