@@ -4,16 +4,13 @@ import bcrypt
 def hash_pass(password):
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
-
 def check_pass(pwd,hashed):
     return bcrypt.checkpw(pwd.encode(), hashed.encode())
-
 
 def check_teacher_exists(username):
     # Check for unique username, retuns false when username is already taken
     response = supabase.table("teachers").select("username").eq("username", username).execute()
     return len(response.data) > 0
-
 
 def create_teacher(username, password, name):
     
@@ -24,7 +21,6 @@ def create_teacher(username, password, name):
     response = supabase.table("teachers").insert(data).execute()
     return response.data
 
-
 def teacher_login(username, password):
     
     response = supabase.table("teachers").select("*").eq("username",username).execute()
@@ -33,7 +29,6 @@ def teacher_login(username, password):
         if check_pass(password, teacher['password']):
             return teacher
     return None
-
 
 def get_all_students():
     response = supabase.table("students").select("*").execute()
@@ -84,3 +79,8 @@ def get_student_attendance(student_id):
     
     response = supabase.table('attendance_logs').select('*, subjects(*)').eq('student_id',student_id).execute()
     return response.data
+
+def create_attendance(logs):
+    response = supabase.table('attendance_logs').insert(logs).execute()
+    return response.data
+    
